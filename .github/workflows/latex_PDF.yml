@@ -32,9 +32,8 @@ jobs:
         
     - name: Commit and push PDF to master
       run: |
-        git config user.email "you@example.com"
-        git config user.name "Your Name"
-        git checkout master
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
         git add lahti.pdf
         git commit -m "Add generated PDF"
         git push origin master
