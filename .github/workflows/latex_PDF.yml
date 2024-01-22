@@ -24,13 +24,17 @@ jobs:
       run: |
         latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode lahti.tex
 
-      - name: Configure Git
-        run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-email@example.com'
-          
-      - name: Commit PDF
-        run: |
-          git add Leo_Lahti.pdf
-          git commit -m "Add generated PDF"
-          git push origin master
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: pdf
+        path: lahti.pdf
+        
+    - name: Commit and push PDF to master
+      run: |
+        git config user.email "you@example.com"
+        git config user.name "Your Name"
+        git checkout master
+        git add lahti.pdf
+        git commit -m "Add generated PDF"
+        git push origin master
