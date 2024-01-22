@@ -1,4 +1,4 @@
-name: Generate LaTeX Bibliography
+name: Generate LaTeX PDF
 
 on:
   push:
@@ -16,14 +16,12 @@ jobs:
     - name: Set up LaTeX
       uses: xu-cheng/latex-action@v2
       with:
-        build_type: pdflatex
+        build_type: latexmk
+        root_file: lahti.tex  
 
     - name: Compile LaTeX document
       run: |
-        pdflatex -interaction=nonstopmode -halt-on-error lahti.tex
-        bibtex lahti.aux
-        pdflatex -interaction=nonstopmode -halt-on-error lahti.tex
-        pdflatex -interaction=nonstopmode -halt-on-error lahti.tex
+        latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode your_document.tex
 
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v2
